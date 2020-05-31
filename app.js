@@ -11,10 +11,8 @@ var localStrategy = require('passport-local');
 var passportLocalMongoose = require('passport-local-mongoose');
 var expressSession = require('express-session');
 
-//Require models
+//Require Models
 var User = require('./models/user.js');
-Campground = require("./models/campground.js");
-Comment = require("./models/comment.js");
 
 //Use authentication pacakges
 app.use(expressSession({
@@ -52,8 +50,16 @@ app.use(function (req, res, next) {
   next();
 });
 
+//Require Routes
+var campgroundRoutes = require("./routes/campgrounds.js");
+var commentsRoutes = require("./routes/comments.js");
+var indexRoutes = require("./routes/index.js");
+
+//Use Routes
+app.use(campgroundRoutes);
+app.use(commentsRoutes);
+app.use(indexRoutes);
+
 app.listen(3000, process.env.IP, function () {
   console.log("Server started!");
 });
-
-//Testig change
